@@ -6,8 +6,8 @@ Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) Installing WEF Subscriptions..."
 Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) Copying Custom Event Channels DLL..."
 if (-not (Test-Path "$env:windir\system32\CustomEventChannels.dll"))
 {
-    Copy-Item c:\Users\vagrant\AppData\Local\Temp\windows-event-forwarding-master\windows-event-channels\CustomEventChannels.dll "$env:windir\system32"
-    Copy-Item c:\Users\vagrant\AppData\Local\Temp\windows-event-forwarding-master\windows-event-channels\CustomEventChannels.man "$env:windir\system32"
+    Copy-Item c:\windows-event-forwarding-master\windows-event-channels\CustomEventChannels.dll "$env:windir\system32"
+    Copy-Item c:\windows-event-forwarding-master\windows-event-channels\CustomEventChannels.man "$env:windir\system32"
 
     Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) Installing Custom Event Channels Manifest..."
     wevtutil im "c:\windows\system32\CustomEventChannels.man"
@@ -19,7 +19,7 @@ if (-not (Test-Path "$env:windir\system32\CustomEventChannels.dll"))
     net start wecsvc
 
     Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) Creating custom event subscriptions..."
-    cd c:\Users\vagrant\AppData\Local\Temp\windows-event-forwarding-master\wef-subscriptions
+    cd c:\windows-event-forwarding-master\wef-subscriptions
     cmd /c "for /r %i in (*.xml) do wecutil cs %i"
 
     Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) Enabling custom event subscriptions..."
