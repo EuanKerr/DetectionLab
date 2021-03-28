@@ -1,9 +1,10 @@
 ansible_user: bglocaladmin
 ansible_password: P@ssw0rd1
-#ansible_port: 5986
-#ansible_connection: winrm
-ansible_connection: ssh
-#ansible_winrm_transport: basic
-#ansible_winrm_server_cert_validation: ignore
+ansible_port: 5986
+ansible_connection: winrm
+ansible_winrm_transport: basic
+ansible_winrm_server_cert_validation: ignore
 
-ansible_ssh_common_args: '-o UserKnownHostsFile=/dev/null'
+#ansible_connection: ssh
+#ansible_shell_type: cmd
+#ansible_ssh_common_args: '-o UserKnownHostsFile=/dev/null'
