@@ -14,13 +14,13 @@
 
 - name: Copy vagrant resources
   synchronize:
-    src: ../../Vagrant/resources
+    src: ../Vagrant/resources
     dest: /vagrant/
   become: yes
 
 - name: Copy bootstrap file
   copy:
-    src: ../../Vagrant/logger_bootstrap.sh
+    src: ../Vagrant/logger_bootstrap.sh
     dest: /home/vagrant
     owner: vagrant
     group: vagrant
