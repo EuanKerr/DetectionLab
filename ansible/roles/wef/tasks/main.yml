@@ -63,15 +63,6 @@
 - name: Clear Event Logs
   win_shell: "wevtutil el | Select-String -notmatch \"Microsoft-Windows-LiveId\" | Foreach-Object {wevtutil cl \"$_\"}"
 
-- name: Downloading the Palantir WEF Configuration
-  win_shell: ".\\download_palantir_wef.ps1"
-  args:
-    chdir: 'c:\vagrant\scripts'
-  register: palantir_wef
-  failed_when: "'Exception' in palantir_wef.stdout"
-
-- debug: msg="{{ palantir_wef.stdout_lines }}"
-
 - name: Git clone palantir
   win_shell: git clone https://github.com/palantir/windows-event-forwarding.git
   args:
