@@ -9,15 +9,6 @@
 
 - debug: msg="{{ palantir_wef.stdout_lines }}"
   
-- name: Installing osquery
-  win_shell: ".\\install-osquery.ps1"
-  args:
-    chdir: 'c:\vagrant\scripts'
-  register: install_osquery
-  failed_when: "'Exception' in install_osquery.stdout"
-
-- debug: msg="{{ install_osquery.stdout_lines }}"
-
 - name: Installing SysInternals Tools
   win_shell: ".\\install-sysinternals.ps1"
   args:
@@ -44,15 +35,6 @@
   failed_when: "'Exception' in autorunstowineventlog.stdout"
 
 - debug: msg="{{ autorunstowineventlog.stdout_lines }}"
-
-- name: Installing Red Team Tooling
-  win_shell: ".\\install-redteam.ps1"
-  args:
-    chdir: 'c:\vagrant\scripts'
-  register: redteam
-  failed_when: "'Exception' in redteam.stdout"
-
-- debug: msg="{{ redteam.stdout_lines }}"
 
 - name: Install Utilities 
   win_chocolatey:
