@@ -21,9 +21,9 @@
 - name: Copy bootstrap file
   copy:
     src: ../Vagrant/logger_bootstrap.sh
-    dest: /home/vagrant
-    owner: vagrant
-    group: vagrant
+    dest: /home/bglocaladmin
+    owner: bglocaladmin
+    group: bglocaladmin
     mode: u+x,g+x
 
 - name: Add APT Repositories
