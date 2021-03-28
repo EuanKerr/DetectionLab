@@ -2,7 +2,7 @@
 
 Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) Downloading and unzipping the Palantir Windows Event Forwarding Repo from Github..."
 
-$wefRepoPath = 'C:\Users\vagrant\AppData\Local\Temp\wef-Master.zip'
+$wefRepoPath = 'C:\Users\bglocaladmin\AppData\Local\Temp\wef-Master.zip'
 
 If (-not (Test-Path $wefRepoPath))
 {
@@ -11,7 +11,7 @@ If (-not (Test-Path $wefRepoPath))
     # Disabling the progress bar speeds up IWR https://github.com/PowerShell/PowerShell/issues/2138
     $ProgressPreference = 'SilentlyContinue'
     Invoke-WebRequest -Uri "https://github.com/palantir/windows-event-forwarding/archive/master.zip" -OutFile $wefRepoPath
-    Expand-Archive -path "$wefRepoPath" -destinationpath 'c:\Users\vagrant\AppData\Local\Temp' -Force
+    Expand-Archive -path "$wefRepoPath" -destinationpath 'c:\Users\bglocaladmin\AppData\Local\Temp' -Force
 }
 else
 {
