@@ -125,7 +125,7 @@ Invoke-Command -computername dc -Credential (new-object pscredential("windomain\
         Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) [$env:computername] Attempting to install Microsoft ATA... "
         Set-Location "$env:temp\gatewaysetup"
         Try {
-            Start-Process -Wait -FilePath ".\Microsoft ATA Gateway Setup.exe" -ArgumentList "/q NetFrameworkCommandLineArguments=`"/q`" ConsoleAccountName=`"wef\vagrant`" ConsoleAccountPassword=`"vagrant`""
+            Start-Process -Wait -FilePath ".\Microsoft ATA Gateway Setup.exe" -ArgumentList "/q NetFrameworkCommandLineArguments=`"/q`" ConsoleAccountName=`"wef\bglocaladmin`" ConsoleAccountPassword=`"P@ssw0rd1`""
         } Catch { 
             Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) Something went wrong attempting to install the Gateway on DC. Aborting installation."
             Exit 1
