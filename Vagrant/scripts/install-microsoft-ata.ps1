@@ -4,26 +4,21 @@ $downloadUrl = "http://download.microsoft.com/download/4/9/1/491394D1-3F28-4261-
 $fileHash = "DC1070A9E8F84E75198A920A2E00DDC3CA8D12745AF64F6B161892D9F3975857" # Use Get-FileHash on a correct downloaded file to get the hash
 
 # Enable web requests to endpoints with invalid SSL certs (like self-signed certs)
-If (-not("SSLValidator" -as [type])) {
-    add-type -TypeDefinition @"
-using System;
+Add-Type @"
 using System.Net;
-using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
-
-public static class SSLValidator {
-    public static bool ReturnTrue(object sender,
-        X509Certificate certificate,
-        X509Chain chain,
-        SslPolicyErrors sslPolicyErrors) { return true; }
-
-    public static RemoteCertificateValidationCallback GetDelegate() {
-        return new RemoteCertificateValidationCallback(SSLValidator.ReturnTrue);
+public class TrustAllCertsPolicy : ICertificatePolicy {
+    public bool CheckValidationResult(
+    ServicePoint srvPoint, X509Certificate certificate,
+    WebRequest request, int certificateProblem) {
+        return true;
     }
 }
 "@
-}
-[System.Net.ServicePointManager]::ServerCertificateValidationCallback = [SSLValidator]::GetDelegate()
+[System.Net.ServicePointManager]::CertificatePolicy = New-Object TrustAllCertsPolicy
+# Set Tls versions
+$allProtocols = [System.Net.SecurityProtocolType]'Ssl3,Tls,Tls11,Tls12'
+[System.Net.ServicePointManager]::SecurityProtocol = $allProtocols
 
 If (-not (Test-Path "C:\Program Files\Microsoft Advanced Threat Analytics\Center"))
 {
@@ -89,7 +84,7 @@ Invoke-Command -computername dc -Credential (new-object pscredential("windomain\
     Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) [$env:computername] Installing the ATA Lightweight gateway on DC..."
 
     Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) [$env:computername] Adding wef.windomain.local to hosts file..."
-    Add-Content 'c:\\windows\\system32\\drivers\\etc\\hosts' '        10.21.25.101    wef.windomain.local'
+    Add-Content 'c:\\windows\\system32\\drivers\\etc\\hosts' '        10.21.25.151    wef.windomain.local'
 
     # Enable web requests to endpoints with invalid SSL certs (like self-signed certs)
     If (-not("SSLValidator" -as [type])) {
