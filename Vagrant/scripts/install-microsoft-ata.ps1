@@ -115,7 +115,7 @@ Invoke-Command -computername dc -Credential (new-object pscredential("windomain\
         Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) [$env:computername] Downloading ATA Lightweight Gateway from WEF now..."
         # Disabling the progress bar speeds up IWR https://github.com/PowerShell/PowerShell/issues/2138
         $ProgressPreference = 'SilentlyContinue'
-        Invoke-WebRequest -uri https://wef/api/management/softwareUpdates/gateways/deploymentPackage -UseBasicParsing -OutFile "$env:temp\gatewaysetup.zip" -Credential (new-object pscredential("wef\vagrant", (convertto-securestring -AsPlainText -Force -String "vagrant")))
+        Invoke-WebRequest -uri https://wef/api/management/softwareUpdates/gateways/deploymentPackage -UseBasicParsing -OutFile "$env:temp\gatewaysetup.zip" -Credential (new-object pscredential("wef\bglocaladmin", (convertto-securestring -AsPlainText -Force -String "P@ssw0rd1")))
         Expand-Archive -Path "$env:temp\gatewaysetup.zip" -DestinationPath "$env:temp\gatewaysetup" -Force
     }
     Else {
