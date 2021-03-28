@@ -42,10 +42,5 @@ if ((gwmi win32_computersystem).partofdomain -eq $false) {
     Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) Installing bginfo..."
     . c:\vagrant\scripts\install-bginfo.ps1
   }
-
-  Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) Setting the registry for auto-login..."
-  Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -Name AutoAdminLogon -Value 1 -Type String
-  Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -Name DefaultUserName -Value "user"
-  Set-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon" -Name DefaultPassword -Value "E3b;70GpB%0j3x7"
   Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) Provisioning after joining domain..."
 }
