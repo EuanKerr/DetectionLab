@@ -440,7 +440,7 @@
   become: yes
   shell: |
     echo "[$(date +%H:%M:%S)]: Installing Zeek..."
-    sh -c "echo 'deb http://download.opensuse.org/repositories/security:/zeek/xUbuntu_20.04/ /' > /etc/apt/sources.list.d/security:zeek.list"
+    sh -c "echo 'deb http://download.opensuse.org/repositories/security:/zeek/xUbuntu_18.04/ /' > /etc/apt/sources.list.d/security:zeek.list"
     wget -nv https://download.opensuse.org/repositories/security:zeek/xUbuntu_18.04/Release.key -O /tmp/Release.key
     apt-key add - </tmp/Release.key &>/dev/null
 
