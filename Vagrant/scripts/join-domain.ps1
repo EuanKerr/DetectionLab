@@ -7,8 +7,8 @@ Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) Joining the domain..."
 
 Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) Now join the domain..."
 $hostname = $(hostname)
-$user = "windomain.local\vagrant"
-$pass = ConvertTo-SecureString "vagrant" -AsPlainText -Force
+$user = "windomain.local\bglocaladmin"
+$pass = ConvertTo-SecureString "P@ssw0rd1" -AsPlainText -Force
 $DomainCred = New-Object System.Management.Automation.PSCredential $user, $pass
 
 # Place the computer in the correct OU based on hostname
