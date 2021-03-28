@@ -12,7 +12,7 @@ sed -i 's/nameserver 127.0.0.53/nameserver 8.8.8.8/g' /etc/resolv.conf && chattr
 # Source variables from logger_variables.sh
 # shellcheck disable=SC1091
 source /vagrant/logger_variables.sh 2>/dev/null || \
-source /home/vagrant/logger_variables.sh 2>/dev/null || \
+source /home/bglocaladmin/logger_variables.sh 2>/dev/null || \
 echo "Unable to locate logger_variables.sh"
 
 if [ -z "$MAXMIND_LICENSE" ]; then
@@ -48,7 +48,7 @@ modify_motd() {
   echo "[$(date +%H:%M:%S)]: Updating the MOTD..."
   # Force color terminal
   sed -i 's/#force_color_prompt=yes/force_color_prompt=yes/g' /root/.bashrc
-  sed -i 's/#force_color_prompt=yes/force_color_prompt=yes/g' /home/vagrant/.bashrc
+  sed -i 's/#force_color_prompt=yes/force_color_prompt=yes/g' /home/bglocaladmin/.bashrc
   # Remove some stock Ubuntu MOTD content
   chmod -x /etc/update-motd.d/10-help-text
   # Copy the DetectionLab MOTD
