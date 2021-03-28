@@ -3,6 +3,8 @@
 
 Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) Installing WEF Subscriptions..."
 
+git clone https://github.com/palantir/windows-event-forwarding.git c:\windows-event-forwarding-master
+
 Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) Copying Custom Event Channels DLL..."
 if (-not (Test-Path "$env:windir\system32\CustomEventChannels.dll"))
 {
