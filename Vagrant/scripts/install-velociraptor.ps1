@@ -16,10 +16,10 @@ Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) Determining latest release of Velocir
 $ProgressPreference = 'SilentlyContinue'
 $tag = (Invoke-WebRequest "https://api.github.com/repos/Velocidex/velociraptor/releases" -UseBasicParsing | ConvertFrom-Json)[0].tag_name
 # Workaround hardcoded URL until this issue gets fixed: https://github.com/Velocidex/velociraptor/issues/528
-$velociraptorDownloadUrl = "https://github.com/Velocidex/velociraptor/releases/download/v0.4.7/velociraptor-v0.4.7-1-windows-amd64.msi"
-#$velociraptorDownloadUrl = "https://github.com/Velocidex/velociraptor/releases/download/$tag/velociraptor-$tag-windows-amd64.msi"
-$velociraptorMSIPath = 'C:\Users\vagrant\AppData\Local\Temp\velociraptor.msi'
-$velociraptorLogFile = 'c:\Users\vagrant\AppData\Local\Temp\velociraptor_install.log'
+#$velociraptorDownloadUrl = "https://github.com/Velocidex/velociraptor/releases/download/v0.5.7/velociraptor-v0.5.7-windows-amd64.msi"
+$velociraptorDownloadUrl = "https://github.com/Velocidex/velociraptor/releases/download/$tag/velociraptor-$tag-windows-amd64.msi"
+$velociraptorMSIPath = 'C:\Users\bglocaladmin\AppData\Local\Temp\velociraptor.msi'
+$velociraptorLogFile = 'c:\Users\bglocaladmin\AppData\Local\Temp\velociraptor_install.log'
 If (-not (Test-Path $velociraptorLogFile)) {
   Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) Downloading Velociraptor..."
   Invoke-WebRequest -Uri "$velociraptorDownloadUrl" -OutFile $velociraptorMSIPath

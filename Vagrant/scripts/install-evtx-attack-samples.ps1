@@ -2,62 +2,52 @@
 
 Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) Indexing EVTX Attack Samples into Splunk..."
 
-# Disabling the progress bar speeds up IWR https://github.com/PowerShell/PowerShell/issues/2138
 $ProgressPreference = 'SilentlyContinue'
-# GitHub requires TLS 1.2 as of 2/27
-[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+md c:\Tools\
+git clone https://github.com/sbousseaden/EVTX-ATTACK-SAMPLES.git c:\Tools\EVTX-ATTACK-SAMPLES
 
 $inputsConf = "C:\Program Files\SplunkUniversalForwarder\etc\apps\Splunk_TA_windows\local\inputs.conf"
 
-# Download and unzip a copy of EVTX Attack Samples
-$evtxAttackDownloadUrl = "https://github.com/sbousseaden/EVTX-ATTACK-SAMPLES/archive/master.zip"
-$evtxAttackRepoPath = "C:\Users\vagrant\AppData\Local\Temp\evtxattack.zip"
-If (-not (Test-Path "C:\Tools\EVTX-ATTACK-SAMPLES\EVTX-ATTACK-SAMPLES-master")) {
-    Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) Downloading EVTX Attack Samples"
-    Invoke-WebRequest -Uri "$evtxAttackDownloadUrl" -OutFile "$evtxAttackRepoPath"
-    Expand-Archive -path "$evtxAttackRepoPath" -destinationpath 'c:\Tools\EVTX-ATTACK-SAMPLES' -Force
-    # Add stanzas to Splunk inputs.conf to index the evtx files
-    # Huge thanks to https://www.cloud-response.com/2019/07/importing-windows-event-log-files-into.html for showing how to do this!
-    If (!(Select-String -Path $inputsConf -Pattern "evtx_attack_sample")) {
+If (!(Select-String -Path $inputsConf -Pattern "evtx_attack_sample")) {
         Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) Splunk inputs.conf has not yet been modified. Adding stanzas for these evtx files now..."
         Add-Content -Path "$inputsConf" -Value '
-[monitor://c:\Tools\EVTX-ATTACK-SAMPLES\EVTX-ATTACK-SAMPLES-master\AutomatedTestingTools\*.evtx]
+[monitor://c:\Tools\EVTX-ATTACK-SAMPLES\AutomatedTestingTools\*.evtx]
 index = evtx_attack_samples
 sourcetype = preprocess-winevt
 
-[monitor://c:\Tools\EVTX-ATTACK-SAMPLES\EVTX-ATTACK-SAMPLES-master\Command and Control\*.evtx]
+[monitor://c:\Tools\EVTX-ATTACK-SAMPLES\Command and Control\*.evtx]
 index = evtx_attack_samples
 sourcetype = preprocess-winevt
 
-[monitor://c:\Tools\EVTX-ATTACK-SAMPLES\EVTX-ATTACK-SAMPLES-master\Credential Access\*.evtx]
+[monitor://c:\Tools\EVTX-ATTACK-SAMPLES\Credential Access\*.evtx]
 index = evtx_attack_samples
 sourcetype = preprocess-winevt
 
-[monitor://c:\Tools\EVTX-ATTACK-SAMPLES\EVTX-ATTACK-SAMPLES-master\Defense Evasion\*.evtx]
+[monitor://c:\Tools\EVTX-ATTACK-SAMPLES\Defense Evasion\*.evtx]
 index = evtx_attack_samples
 sourcetype = preprocess-winevt
 
-[monitor://c:\Tools\EVTX-ATTACK-SAMPLES\EVTX-ATTACK-SAMPLES-master\Discovery\*.evtx]
+[monitor://c:\Tools\EVTX-ATTACK-SAMPLES\Discovery\*.evtx]
 index = evtx_attack_samples
 sourcetype = preprocess-winevt
 
-[monitor://c:\Tools\EVTX-ATTACK-SAMPLES\EVTX-ATTACK-SAMPLES-master\Execution\*.evtx]
+[monitor://c:\Tools\EVTX-ATTACK-SAMPLES\Execution\*.evtx]
 index = evtx_attack_samples
 sourcetype = preprocess-winevt
 
-[monitor://c:\Tools\EVTX-ATTACK-SAMPLES\EVTX-ATTACK-SAMPLES-master\Lateral Movement\*.evtx]
+[monitor://c:\Tools\EVTX-ATTACK-SAMPLES\Lateral Movement\*.evtx]
 index = evtx_attack_samples
 sourcetype = preprocess-winevt
 
-[monitor://c:\Tools\EVTX-ATTACK-SAMPLES\EVTX-ATTACK-SAMPLES-master\Other\*.evtx]
+[monitor://c:\Tools\EVTX-ATTACK-SAMPLES\Other\*.evtx]
 index = evtx_attack_samples
 sourcetype = preprocess-winevt
 
-[monitor://c:\Tools\EVTX-ATTACK-SAMPLES\EVTX-ATTACK-SAMPLES-master\Persistence\*.evtx]
+[monitor://c:\Tools\EVTX-ATTACK-SAMPLES\Persistence\*.evtx]
 index = evtx_attack_samples
 sourcetype = preprocess-winevt
 
-[monitor://c:\Tools\EVTX-ATTACK-SAMPLES\EVTX-ATTACK-SAMPLES-master\Privilege Escalation\*.evtx]
+[monitor://c:\Tools\EVTX-ATTACK-SAMPLES\Privilege Escalation\*.evtx]
 index = evtx_attack_samples
 sourcetype = preprocess-winevt'
         # Restart the forwarder to pick up changes
