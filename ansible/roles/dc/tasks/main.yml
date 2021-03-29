@@ -55,7 +55,7 @@
     chdir: 'c:\vagrant\scripts'
   register: ou_creation
   vars:
-    ansible_become: yes
+    become: yes
   failed_when: "'Exception' in ou_creation.stderr"
 
 - debug: msg="{{ ou_creation.stdout_lines }}"
@@ -66,7 +66,7 @@
     chdir: 'c:\vagrant\scripts'
   register: wef_gpo
   vars:
-    ansible_become: yes
+    become: yes
   failed_when: "'Exception' in wef_gpo.stderr"
 
 - debug: msg="{{ wef_gpo.stdout_lines }}"
@@ -77,7 +77,7 @@
     chdir: 'c:\vagrant\scripts'
   register: powershell_gpo
   vars:
-    ansible_become: yes
+    become: yes
   failed_when: "'Exception' in powershell_gpo.stderr"
 
 - debug: msg="{{ powershell_gpo.stdout_lines }}"
@@ -88,7 +88,7 @@
     chdir: 'c:\vagrant\scripts'
   register: audit_policy
   vars:
-    ansible_become: yes
+    become: yes
   failed_when: "'Exception' in audit_policy.stderr"
 
 - debug: msg="{{ audit_policy.stdout_lines }}"
@@ -99,7 +99,7 @@
     chdir: 'c:\vagrant\scripts'
   register: disable_win_def
   vars:
-    ansible_become: yes
+    become: yes
   failed_when: "'Exception' in disable_win_def.stderr"
 
 - debug: msg="{{ disable_win_def.stdout_lines }}"
@@ -110,7 +110,7 @@
     chdir: 'c:\vagrant\scripts'
   register: rdp_gpo
   vars:
-    ansible_become: yes
+    become: yes
   failed_when: "'Exception' in rdp_gpo.stderr"
 
 - debug: msg="{{ rdp_gpo.stdout_lines }}"
@@ -121,7 +121,7 @@
     chdir: 'c:\vagrant\scripts'
   register: taskbar_gpo
   vars:
-    ansible_become: yes
+    become: yes
   failed_when: "'Exception' in taskbar_gpo.stderr"
 
 - debug: msg="{{ taskbar_gpo.stdout_lines }}"
