@@ -42,7 +42,8 @@ If (-not (Test-Path "C:\Program Files\Microsoft Advanced Threat Analytics\Center
         Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) Downloading $title..."
         # Disabling the progress bar speeds up IWR https://github.com/PowerShell/PowerShell/issues/2138
         $ProgressPreference = 'SilentlyContinue'
-        Invoke-WebRequest -Uri $downloadUrl -OutFile "c:\$title.iso"
+        curl.exe $downloadUrl -o "c:\$title.iso"
+        #Invoke-WebRequest -Uri $downloadUrl -OutFile "c:\$title.iso"
         $actualHash = (Get-FileHash -Algorithm SHA256 -Path "c:\$title.iso").Hash
         If (-not ($actualHash -eq $fileHash))
         {
