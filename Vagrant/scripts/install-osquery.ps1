@@ -21,7 +21,7 @@ If (-not ($service)) {
     Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) Hosts file already updated. Moving on."
   } Else {
   Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) Adding kolide to the hosts file"
-  Add-Content "c:\windows\system32\drivers\etc\hosts" "        192.168.38.105    kolide"
+  Add-Content "c:\windows\system32\drivers\etc\hosts" "        10.21.25.2    kolide"
   }
   ## Add kolide secret and avoid BOM
   $Utf8NoBomEncoding = New-Object System.Text.UTF8Encoding $False
