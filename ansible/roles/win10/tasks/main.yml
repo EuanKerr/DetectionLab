@@ -1,9 +1,22 @@
 ---
+- name: install choco
+  win_copy:
+    src: choco.zip
+    dest: c:\
+
+- name: install choco2
+  win_shell: "Expand-Archive -Path C:\\choco.zip -DestinationPath C:\\windows\\temp -Force"
+  
+- name: install choco3
+  win_shell: .\\chocolateyInstall.ps1
+  args:
+    chdir: 'C:\windows\temp\choco\'
 
 - name: Install git
   win_chocolatey:
-    name: git
+    name: git.install
     state: present
+    source: '\\dc.windomain.local\choco'
 
 - name: Check if existing DetectionLab directory
   win_stat:

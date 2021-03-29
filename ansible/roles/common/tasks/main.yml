@@ -45,16 +45,16 @@
 
 - debug: msg="{{ autorunstowineventlog.stdout_lines }}"
 
-- name: Install Utilities 
-  win_chocolatey:
-    name:
-    - NotepadPlusPlus
-    - GoogleChrome
-    - WinRar
-    - wireshark
-    - winpcap
-    state: present
-    ignore_checksums: yes
+  #- name: Install Utilities 
+  #  win_chocolatey:
+  #    name:
+  #    - NotepadPlusPlus
+  #    - GoogleChrome
+  #    - WinRar
+  #    - wireshark
+  #    - winpcap
+  #    state: present
+  #    ignore_checksums: yes
 
 
 
