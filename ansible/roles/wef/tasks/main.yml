@@ -24,6 +24,12 @@
   args:
     chdir: 'c:\'
   when: not dir.stat.exists
+  
+- name: Git pull Detectionlab
+  win_shell: git pull
+  args:
+    chdir: 'c:\DetectionLab'
+  when: dir.stat.exists
 
 - name: Copy scripts to c:\vagrant
   win_shell: Copy-Item -Recurse c:\DetectionLab\Vagrant c:\vagrant
