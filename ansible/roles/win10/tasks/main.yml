@@ -5,6 +5,16 @@
     name: git
     state: present
 
+- name: cleanup folder
+  win_file:
+    path: 'c:\DetectionLab'
+    state: absent
+
+- name: cleanup folder
+  win_file:
+    path: 'c:\vagrant'
+    state: absent
+
 - name: Check if existing DetectionLab directory
   win_stat:
     path: 'c:\DetectionLab'
