@@ -60,7 +60,6 @@ sourcetype = preprocess-winevt'
           Start-Service -Name SplunkForwarder
         }
         Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) Done! Look in 'index=EVTX-ATTACK-SAMPLES' in Splunk to query these samples."
-    }
 } Else {
     Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) EVTX attack samples were already installed. Moving On."
 }
