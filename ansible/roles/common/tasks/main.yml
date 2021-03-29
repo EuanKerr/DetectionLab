@@ -27,6 +27,15 @@
 
 - debug: msg="{{ velociraptor.stdout_lines }}"
 
+- name: Installing osquery
+  win_shell: ".\\install-osquery.ps1"
+  args:
+    chdir: 'c:\vagrant\scripts'
+  register: osquery
+  failed_when: "'Exception' in osquery.stdout"
+
+- debug: msg="{{ osquery.stdout_lines }}"
+
 - name: Installing AutorunsToWineventlog
   win_shell: ".\\install-autorunstowineventlog.ps1"
   args:
