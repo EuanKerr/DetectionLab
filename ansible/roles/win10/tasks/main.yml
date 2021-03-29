@@ -23,7 +23,7 @@
   when: dir.stat.exists
 
 - name: Copy scripts to c:\vagrant
-  win_shell: Copy-Item -Recurse c:\DetectionLab\Vagrant c:\vagrant
+  win_shell: Copy-Item -Force -Recurse c:\DetectionLab\Vagrant c:\vagrant
 
 - name: Join the Domain
   win_shell: .\\provision.ps1
