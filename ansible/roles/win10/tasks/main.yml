@@ -1,22 +1,8 @@
 ---
-- name: install choco
-  win_copy:
-    src: choco.zip
-    dest: c:\
-
-- name: install choco2
-  win_shell: "Expand-Archive -Path C:\\choco.zip -DestinationPath C:\\windows\\temp -Force"
-  
-- name: install choco3
-  win_shell: .\\chocolateyInstall.ps1
-  args:
-    chdir: 'C:\windows\temp\choco\'
-
 - name: Install git
   win_chocolatey:
-    name: git.install
+    name: git
     state: present
-    source: '\\dc.windomain.local\choco'
 
 - name: Check if existing DetectionLab directory
   win_stat:
@@ -55,16 +41,3 @@
 
 - name: Clear Event Logs
   win_shell: "wevtutil el | Select-String -notmatch \"Microsoft-Windows-LiveId\" | Foreach-Object {wevtutil cl \"$_\"}"
-
-- name: Install classic-shell with chocolatey
-  win_chocolatey:
-    name:
-      - classic-shell
-    state: present
-    install_args: "ADDLOCAL=ClassicStartMenu"
-
-- name: DetectionLab Menu
-  win_shell: "\"C:\\Program Files\\Classic Shell\\ClassicStartMenu.exe -xml c:\\vagrant\\resources\\windows\\MenuSettings.xml\""
-
-
-
