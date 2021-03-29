@@ -18,7 +18,7 @@ If ($hostname -eq "wef") {
   Set-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control' -Name 'WaitToKillServiceTimeout' -Value '500' -Type String -Force -ea SilentlyContinue
   New-ItemProperty -LiteralPath 'HKCU:\Control Panel\Desktop' -Name 'AutoEndTasks' -Value 1 -PropertyType DWord -Force -ea SilentlyContinue
   Set-ItemProperty -LiteralPath 'HKLM:\SYSTEM\CurrentControlSet\Control\SessionManager\Power' -Name 'HiberbootEnabled' -Value 0 -Type DWord -Force -ea SilentlyContinue
-} ElseIf ($hostname -eq "win10") {
+} ElseIf ($hostname -like "gcp-win*") {
   Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) Adding Win10 to the domain. Sometimes this step times out. If that happens, just run 'vagrant reload win10 --provision'" #debug
   Add-Computer -DomainName "windomain.local" -credential $DomainCred -OUPath "ou=Workstations,dc=windomain,dc=local"
 } Else {
@@ -34,7 +34,7 @@ Stop-Service TrustedInstaller
 
 # Uninstall Windows Defender from WEF
 # This command isn't supported on WIN10
-If ($hostname -ne "win10" -And (Get-Service -Name WinDefend -ErrorAction SilentlyContinue).status -eq 'Running') {
+If ((Get-Service -Name WinDefend -ErrorAction SilentlyContinue).status -eq 'Running') {
   # Uninstalling Windows Defender (https://github.com/StefanScherer/packer-windows/issues/201)
   Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) Uninstalling Windows Defender..."
   Try {
@@ -42,13 +42,12 @@ If ($hostname -ne "win10" -And (Get-Service -Name WinDefend -ErrorAction Silentl
     Uninstall-WindowsFeature Windows-Defender-Features -ErrorAction Stop
   } Catch {
     Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) Windows Defender did not uninstall successfully..."
-    Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) We'll try again during install-red-team.ps1"
   }
 }
 
 # Disable a bunch of Defender related registry keys for Win10
 # Source: https://gist.github.com/vestjoe/f1d829e81883b880b970ff171fd8ceec
-if ((Get-CimInstance -ClassName CIM_OperatingSystem).Caption -like "Microsoft Windows 10*") {
+if ((Get-CimInstance -ClassName CIM_OperatingSystem).Caption -like "Microsoft Windows *") {
   # Turn Off Windows Defender
   REG ADD "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v DisableAntiSpyware /t REG_DWORD /d 1 /f
   REG ADD "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v DisableRoutinelyTakingAction /t REG_DWORD /d 1 /f
