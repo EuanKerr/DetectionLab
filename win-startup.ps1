@@ -3,7 +3,7 @@ secedit /export /cfg C:\secpol.cfg
 secedit /configure /db C:\Windows\security\local.sdb /cfg C:\secpol.cfg /areas SECURITYPOLICY
 rm -force C:\secpol.cfg -confirm:$false
 net user bglocaladmin P@ssw0rd1 /add /y
-net localgroup administrators ansible /add
+net localgroup administrators bglocaladmin /add
 powershell.exe -c "Set-NetConnectionProfile -InterfaceAlias Ethernet -NetworkCategory Private"
 Enable-PSRemoting -Force
 winrm quickconfig -q
