@@ -45,6 +45,9 @@
 
 - debug: msg="{{ autorunstowineventlog.stdout_lines }}"
 
+- name: refresh the local GPO to ensure we have the latest certs
+  win_command: gpupdate /force
+
   #- name: Install Utilities 
   #  win_chocolatey:
   #    name:
