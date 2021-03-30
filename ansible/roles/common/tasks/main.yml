@@ -47,6 +47,8 @@
 
 - name: refresh the local GPO to ensure we have the latest certs
   win_command: gpupdate /force /boot
+  tags:
+    - gpupdate
 
   #- name: Install Utilities 
   #  win_chocolatey:
