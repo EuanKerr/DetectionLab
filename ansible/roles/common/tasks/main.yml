@@ -50,6 +50,25 @@
   tags:
     - gpupdate
 
+- name: Reboot Server
+  win_reboot:
+    msg: "Rebooting..."
+    pre_reboot_delay: 10
+    reboot_timeout: 600
+    post_reboot_delay: 60
+  tags:
+    - gpupdate
+
+- name: cleanup
+  win_file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - 'C:\DetectionLab'
+    - 'C:\vagrant'
+  tags:
+    - cleanup
+
   #- name: Install Utilities 
   #  win_chocolatey:
   #    name:
