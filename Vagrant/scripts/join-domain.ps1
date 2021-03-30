@@ -21,6 +21,8 @@ If ($hostname -eq "wef") {
 } ElseIf ($hostname -like "gcp-win*") {
   Write-Host "$('[{0:HH:mm}]' -f (Get-Date)) Adding Win10 to the domain. Sometimes this step times out. If that happens, just run 'vagrant reload win10 --provision'" #debug
   Add-Computer -DomainName "windomain.local" -credential $DomainCred -OUPath "ou=Workstations,dc=windomain,dc=local" -PassThru -Verbose
+} ElseIf ($hostname -like "gcp-srv*") {
+  Add-Computer -DomainName "windomain.local" -credential $DomainCred -OUPath "ou=Servers,dc=windomain,dc=local" -PassThru -Verbose
 } Else {
   Add-Computer -DomainName "windomain.local" -credential $DomainCred -PassThru -Verbose
 }
